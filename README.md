@@ -1,5 +1,6 @@
 # Building a SOC + Honeynet in Azure (Live Traffic)
-![CLOUD SOC + Honeynet](https://github.com/Jason-Siu/Cloud-SOC/assets/34889726/64af82a1-af80-4118-b663-157508dcb37e)
+![image](https://github.com/Jason-Siu/Cloud-SOC/assets/34889726/ab564075-efad-4adc-94b5-cbb8d6e692f7)
+
 
 
 ## Introduction
@@ -13,12 +14,14 @@ In this project, I build a mini honeynet in Azure and ingest log sources from va
 - AzureNetworkAnalytics_CL (Malicious Flows allowed into our honeynet)
 
 ## Architecture Before Hardening / Security Controls
-![image](https://github.com/Jason-Siu/Cloud-SOC/assets/34889726/a5f7e9a0-bd38-47d7-8de8-988b38d3ab2d)
+![image](https://github.com/Jason-Siu/Cloud-SOC/assets/34889726/38118c7f-c71e-4f2c-ba8c-f331b52fa33f)
+
 
 
 
 ## Architecture After Hardening / Security Controls
-![Architecture Diagram](https://i.imgur.com/YQNa9Pp.jpg)
+![image](https://github.com/Jason-Siu/Cloud-SOC/assets/34889726/feb2246a-9b8c-4efe-8095-0ded53570599)
+
 
 The architecture of the mini honeynet in Azure consists of the following components:
 
@@ -29,44 +32,59 @@ The architecture of the mini honeynet in Azure consists of the following compone
 - Azure Key Vault
 - Azure Storage Account
 - Microsoft Sentinel
+- Microsoft Defender for the Cloud
+- Windows Remote Desktop
+- Command Line Interface
+- PowerShell
+- NIST SP 800-53 r4
+- NIST SP 800-61 r2
+
 
 For the "BEFORE" metrics, all resources were originally deployed, exposed to the internet. The Virtual Machines had both their Network Security Groups and built-in firewalls wide open, and all other resources are deployed with public endpoints visible to the Internet; aka, no use for Private Endpoints.
 
 For the "AFTER" metrics, Network Security Groups were hardened by blocking ALL traffic with the exception of my admin workstation, and all other resources were protected by their built-in firewalls as well as Private Endpoint
 
 ## Attack Maps Before Hardening / Security Controls
-![NSG Allowed Inbound Malicious Flows](https://i.imgur.com/1qvswSX.png)<br>
-![Linux Syslog Auth Failures](https://i.imgur.com/G1YgZt6.png)<br>
-![Windows RDP/SMB Auth Failures](https://i.imgur.com/ESr9Dlv.png)<br>
+![nsg-allowedin-before](https://github.com/Jason-Siu/Cloud-SOC/assets/34889726/da5aea16-c0af-4141-b76d-733d8ca57c8c)
+<br>
+![linux-auth-fail-before](https://github.com/Jason-Siu/Cloud-SOC/assets/34889726/bda60e52-e015-48fe-9400-b89b25dd55b2)
+<br>
+![windowsrdp-fail-before-24hours](https://github.com/Jason-Siu/Cloud-SOC/assets/34889726/e2f76846-f151-4516-b8e4-e6d92cfd62ca)
+<br>
 
 ## Metrics Before Hardening / Security Controls
 
 The following table shows the metrics we measured in our insecure environment for 24 hours:
-Start Time 2023-03-15 17:04:29
-Stop Time 2023-03-16 17:04:29
+Start Time 2023-12-18 3:04:05 PM CST
+Stop Time 2023-12-19 3:04:05 PM CST
 
 | Metric                   | Count
 | ------------------------ | -----
-| SecurityEvent            | 19470
-| Syslog                   | 3028
-| SecurityAlert            | 10
-| SecurityIncident         | 348
-| AzureNetworkAnalytics_CL | 843
+| SecurityEvent            | 23081
+| Syslog                   | 23545
+| SecurityAlert            | 2
+| SecurityIncident         | 293
+| AzureNetworkAnalytics_CL | 68034
 
 ## Attack Maps Before Hardening / Security Controls
 
 ```All map queries actually returned no results due to no instances of malicious activity for the 24 hour period after hardening.```
 
+## Hardening Steps
+
+The preliminary analysis conducted over a 24-hour period exposed several security risks to the lab, primarily due to its exposure on the public internet. In response to these vulnerabilities, I implemented the NIST SP 800-53 r4 standards in the compliance section of Microsoft Defender. 
+
+
 ## Metrics After Hardening / Security Controls
 
 The following table shows the metrics we measured in our environment for another 24 hours, but after we have applied security controls:
-Start Time 2023-03-18 15:37
-Stop Time	2023-03-19 15:37
+Start Time 2023-12-22 6:43:23 AM CST
+Stop Time	2023-12-23 6:43:23 AM CST
 
 | Metric                   | Count
 | ------------------------ | -----
-| SecurityEvent            | 8778
-| Syslog                   | 25
+| SecurityEvent            | 8938
+| Syslog                   | 1
 | SecurityAlert            | 0
 | SecurityIncident         | 0
 | AzureNetworkAnalytics_CL | 0
