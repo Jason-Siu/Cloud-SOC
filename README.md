@@ -22,7 +22,8 @@ In this project, I build a mini honeynet in Azure and ingest log sources from va
 
 
 ## Architecture After Hardening / Security Controls
-![image](https://github.com/Jason-Siu/Cloud-SOC/assets/34889726/feb2246a-9b8c-4efe-8095-0ded53570599)
+![before architecture](https://github.com/Jason-Siu/Cloud-SOC/assets/34889726/f35a594f-c718-4195-acce-456ea52a72ae)
+
 
 
 The architecture of the mini honeynet in Azure consists of the following components:
